@@ -43,27 +43,29 @@ public class CifraCesar {
         int letraASCII = letra.hashCode();
         int letraCifradaASCII = letraASCII + chaveDeRotacao;
 
-        if (letraCifradaASCII > VALOR_DE_Z_TABELA_ASCII) {
-            letraCifradaASCII -= TAMANHO_ALFABETO;
-        }
-
-        return (char)letraCifradaASCII;
+        return (char)verificarPosicaoLetraASCII(letraCifradaASCII);
     }
 
     private char descriptografarLetra(Character letra) {
         int letraASCII = letra.hashCode();
         int letraDecifradaASCII = letraASCII - chaveDeRotacao;
 
-        if (letraDecifradaASCII < VALOR_DE_A_TABELA_ASCII) {
-            letraDecifradaASCII += TAMANHO_ALFABETO;
-        }
-
-        return (char)letraDecifradaASCII;
+        return (char)verificarPosicaoLetraASCII(letraDecifradaASCII);
     }
 
     private String retirarCaracteresEspeciais(String texto) {
         texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
         texto = texto.replaceAll("[^a-zA-Z]+", "");
         return texto;
+    }
+
+    private int verificarPosicaoLetraASCII(int letraASCII) {
+        if (letraASCII > VALOR_DE_Z_TABELA_ASCII) {
+            letraASCII -= TAMANHO_ALFABETO;
+        }
+        if (letraASCII < VALOR_DE_A_TABELA_ASCII) {
+            letraASCII += TAMANHO_ALFABETO;
+        }
+        return letraASCII;
     }
 }
