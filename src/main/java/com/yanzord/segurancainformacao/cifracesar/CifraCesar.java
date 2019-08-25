@@ -4,10 +4,10 @@ import java.text.Normalizer;
 
 public class CifraCesar {
 
-    private static final int CHAVE_DA_CRIPTOGRAFIA = 3;
     private static final int VALOR_DE_Z_TABELA_ASCII = 90;
     private static final int TAMANHO_ALFABETO = 26;
     private static final int VALOR_DE_A_TABELA_ASCII = 65;
+    private int chaveDeRotacao = 3;
 
     public String criptografarTexto(String texto) {
         String textoSemCaracteresEspeciais = retirarCaracteresEspeciais(texto);
@@ -31,9 +31,17 @@ public class CifraCesar {
         return textoDecifrado.toString();
     }
 
+    public int getChaveDeRotacao() {
+        return chaveDeRotacao;
+    }
+
+    public void setChaveDeRotacao(int chaveDeRotacao) {
+        this.chaveDeRotacao = chaveDeRotacao;
+    }
+
     private char criptografarLetra(Character letra) {
         int letraASCII = letra.hashCode();
-        int letraCifradaASCII = letraASCII + CHAVE_DA_CRIPTOGRAFIA;
+        int letraCifradaASCII = letraASCII + chaveDeRotacao;
 
         if (letraCifradaASCII > VALOR_DE_Z_TABELA_ASCII) {
             letraCifradaASCII -= TAMANHO_ALFABETO;
@@ -44,7 +52,7 @@ public class CifraCesar {
 
     private char descriptografarLetra(Character letra) {
         int letraASCII = letra.hashCode();
-        int letraDecifradaASCII = letraASCII - CHAVE_DA_CRIPTOGRAFIA;
+        int letraDecifradaASCII = letraASCII - chaveDeRotacao;
 
         if (letraDecifradaASCII < VALOR_DE_A_TABELA_ASCII) {
             letraDecifradaASCII += TAMANHO_ALFABETO;
