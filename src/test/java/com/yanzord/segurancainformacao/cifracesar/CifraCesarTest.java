@@ -5,10 +5,16 @@ import static org.junit.Assert.assertEquals;
 
 public class CifraCesarTest {
 
+    private CifraCesar cifraCesar = new CifraCesar();
+
     @Test
     public void deveCriptografarMensagem() {
-        CifraCesar cifraCesar = new CifraCesar();
         assertEquals("EDQDQD", cifraCesar.criptografarTexto("Banana!"));
+    }
+
+    @Test
+    public void deveRetornarStringVaziaSeReceberSomenteCaracteresEspeciais() {
+        assertEquals("", cifraCesar.criptografarTexto("!#!$!$%%%$#&     "));
     }
 
 }
