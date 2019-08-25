@@ -4,26 +4,32 @@ import java.text.Normalizer;
 
 public class CifraCesar {
 
+    private static final int CHAVE_DA_CRIPTOGRAFIA = 3;
+    private static final int VALOR_DE_Z_TABELA_ASCII = 90;
+    private static final int TAMANHO_ALFABETO = 26;
+    private static final int VALOR_DE_A_TABELA_ASCII = 65;
 
     public String criptografarTexto(String texto) {
-
         String textoSemCaracteresEspeciais = retirarCaracteresEspeciais(texto);
         textoSemCaracteresEspeciais = textoSemCaracteresEspeciais.toUpperCase();
-        StringBuilder textoCesar = new StringBuilder();
-        
-        for(int letra=0; letra < textoSemCaracteresEspeciais.length(); letra++) {
-            int letraCifradaASCII = ((int) textoSemCaracteresEspeciais.charAt(letra)) + 3;
+        StringBuilder textoCifrado = new StringBuilder();
 
-            if (((int) textoSemCaracteresEspeciais.charAt(letra) + 3) > 90) {
-                letraCifradaASCII -= 26;
-            } else if (((int) textoSemCaracteresEspeciais.charAt(letra) + 3) < 65) {
-                letraCifradaASCII += 26;
-            }
+        for (Character letra : textoSemCaracteresEspeciais.toCharArray()) {
+            textoCifrado.append(criptografarLetra(letra));
+        }
+        return textoCifrado.toString();
+    }
 
-            textoCesar.append((char) letraCifradaASCII);
-        }        
+    private char criptografarLetra(Character letra) {
+        int letraASCII = letra.hashCode();
+        int letraCifradaASCII = letraASCII + CHAVE_DA_CRIPTOGRAFIA;
 
-        return textoCesar.toString();
+        if (letraCifradaASCII > VALOR_DE_Z_TABELA_ASCII) {
+            letraCifradaASCII -= TAMANHO_ALFABETO;
+        } else if (letraCifradaASCII < VALOR_DE_A_TABELA_ASCII) {
+            letraCifradaASCII += TAMANHO_ALFABETO;
+        }
+        return (char)letraCifradaASCII;
     }
 
     private String retirarCaracteresEspeciais(String texto) {
