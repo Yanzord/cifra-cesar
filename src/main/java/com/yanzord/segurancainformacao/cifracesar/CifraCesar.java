@@ -31,30 +31,31 @@ public class CifraCesar {
         return textoDecifrado.toString();
     }
 
-    private char descriptografarLetra(Character letra) {
-        int letraASCII = letra.hashCode();
-        int letraDecifradaASCII = letraASCII - CHAVE_DA_CRIPTOGRAFIA;
-        return (char)verificarPosicaoASCII(letraDecifradaASCII);
-    }
-
     private char criptografarLetra(Character letra) {
         int letraASCII = letra.hashCode();
         int letraCifradaASCII = letraASCII + CHAVE_DA_CRIPTOGRAFIA;
-        return (char)verificarPosicaoASCII(letraCifradaASCII);
+
+        if (letraCifradaASCII > VALOR_DE_Z_TABELA_ASCII) {
+            letraCifradaASCII -= TAMANHO_ALFABETO;
+        }
+
+        return (char)letraCifradaASCII;
+    }
+
+    private char descriptografarLetra(Character letra) {
+        int letraASCII = letra.hashCode();
+        int letraDecifradaASCII = letraASCII - CHAVE_DA_CRIPTOGRAFIA;
+
+        if (letraDecifradaASCII < VALOR_DE_A_TABELA_ASCII) {
+            letraDecifradaASCII += TAMANHO_ALFABETO;
+        }
+
+        return (char)letraDecifradaASCII;
     }
 
     private String retirarCaracteresEspeciais(String texto) {
         texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
         texto = texto.replaceAll("[^a-zA-Z]+", "");
         return texto;
-    }
-
-    private int verificarPosicaoASCII(int letraASCII) {
-        if (letraASCII > VALOR_DE_Z_TABELA_ASCII) {
-            letraASCII -= TAMANHO_ALFABETO;
-        } else if (letraASCII < VALOR_DE_A_TABELA_ASCII) {
-            letraASCII += TAMANHO_ALFABETO;
-        }
-        return letraASCII;
     }
 }
