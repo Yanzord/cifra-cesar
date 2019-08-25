@@ -20,21 +20,41 @@ public class CifraCesar {
         return textoCifrado.toString();
     }
 
+    public String descriptografarTexto(String textoCriptografado) {
+        String textoSemCaracteresEspeciais = retirarCaracteresEspeciais(textoCriptografado);
+        textoSemCaracteresEspeciais = textoSemCaracteresEspeciais.toUpperCase();
+        StringBuilder textoDecifrado = new StringBuilder();
+
+        for (Character letra : textoSemCaracteresEspeciais.toCharArray()) {
+            textoDecifrado.append(descriptografarLetra(letra));
+        }
+        return textoDecifrado.toString();
+    }
+
+    private char descriptografarLetra(Character letra) {
+        int letraASCII = letra.hashCode();
+        int letraDecifradaASCII = letraASCII - CHAVE_DA_CRIPTOGRAFIA;
+        return (char)verificarPosicaoASCII(letraDecifradaASCII);
+    }
+
     private char criptografarLetra(Character letra) {
         int letraASCII = letra.hashCode();
         int letraCifradaASCII = letraASCII + CHAVE_DA_CRIPTOGRAFIA;
-
-        if (letraCifradaASCII > VALOR_DE_Z_TABELA_ASCII) {
-            letraCifradaASCII -= TAMANHO_ALFABETO;
-        } else if (letraCifradaASCII < VALOR_DE_A_TABELA_ASCII) {
-            letraCifradaASCII += TAMANHO_ALFABETO;
-        }
-        return (char)letraCifradaASCII;
+        return (char)verificarPosicaoASCII(letraCifradaASCII);
     }
 
     private String retirarCaracteresEspeciais(String texto) {
         texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
         texto = texto.replaceAll("[^a-zA-Z]+", "");
         return texto;
+    }
+
+    private int verificarPosicaoASCII(int letraASCII) {
+        if (letraASCII > VALOR_DE_Z_TABELA_ASCII) {
+            letraASCII -= TAMANHO_ALFABETO;
+        } else if (letraASCII < VALOR_DE_A_TABELA_ASCII) {
+            letraASCII += TAMANHO_ALFABETO;
+        }
+        return letraASCII;
     }
 }

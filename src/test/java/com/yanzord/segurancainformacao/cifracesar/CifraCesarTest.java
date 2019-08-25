@@ -17,4 +17,9 @@ public class CifraCesarTest {
         assertEquals("", cifraCesar.criptografarTexto("!#!$!$%%%$#&     "));
     }
 
+    @Test
+    public void deveDescriptografarMensagem() {
+        assertEquals("BANANA", cifraCesar.descriptografarTexto("EDQDQD"));
+    }
+
 }
