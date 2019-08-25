@@ -1,6 +1,9 @@
 plugins {
     id 'java'
+    id 'application'
 }
+
+mainClassName = 'com.yanzord.segurancainformacao.cifracesar.Main'
 
 group 'com.yanzord.segurancainformacao'
 version '1.0-SNAPSHOT'
@@ -13,4 +16,13 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': mainClassName,
+                'Class-Path': configurations.runtimeClasspath.collect { it.absolutePath }.join(' ')
+        )
+    }
 }
