@@ -15,7 +15,7 @@ public class Main {
             System.out.println("- Insira 1 para criptografar um texto;");
             System.out.println("- Insira 2 para descriptografar um texto;");
             System.out.println("- Insira 3 para alterar a chave de rotacao;");
-            System.out.println("- Insira 0 para sair.");
+            System.out.println("- Insira outro caractere qualquer para sair.");
             Scanner teclado = new Scanner(System.in);
             int opcao = teclado.nextInt();
 
