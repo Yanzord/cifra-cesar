@@ -63,6 +63,6 @@ O programa é executado no console, há quatro opções disponíveis:
 - Alterar chave de rotação: Permite alterar a chave de rotação atual.
 - Sair: permite sair do programa.
 
-Os métodos de criptografia e descriptografia utilizam a posição do charactere na tabela ASCII para realizar a lógica de incremento e decremento
+Os métodos de criptografia e descriptografia utilizam a posição do caractere na tabela ASCII para realizar a lógica de incremento e decremento
 na posição do alfabeto. Caracteres especiais são retirados do texto e desconsiderados durante o processo, o texto de saída é em caixa alta
 para facilitar a leitura.        				    	    
